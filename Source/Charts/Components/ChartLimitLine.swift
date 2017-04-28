@@ -31,10 +31,10 @@ open class ChartLimitLine: ComponentBase
     
     fileprivate var _lineWidth = CGFloat(2.0)
     open var lineColor = NSUIColor(red: 237.0/255.0, green: 91.0/255.0, blue: 91.0/255.0, alpha: 1.0)
-    open var lineDashPhase = CGFloat(0.0)
-    open var lineDashLengths: [CGFloat]?
+    open var lineDashPhase = CGFloat(2.0)
+    open var lineDashLengths: [CGFloat]? = [3,6]
     
-    open var valueTextColor = NSUIColor.black
+    open var valueTextColor = NSUIColor.white
     open var valueFont = NSUIFont.systemFont(ofSize: 13.0)
     
     open var drawLabelEnabled = true

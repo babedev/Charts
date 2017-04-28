@@ -327,7 +327,7 @@ open class HorizontalBarChartRenderer: BarChartRenderer
             {
                 guard let dataSet = dataSets[dataSetIndex] as? IBarChartDataSet else { continue }
                 
-                if !shouldDrawValues(forDataSet: dataSet) || !(dataSet.isDrawIconsEnabled && dataSet.isVisible)
+                if !shouldDrawValues(forDataSet: dataSet)
                 {
                     continue
                 }
@@ -342,8 +342,6 @@ open class HorizontalBarChartRenderer: BarChartRenderer
                 let trans = dataProvider.getTransformer(forAxis: dataSet.axisDependency)
                 
                 let phaseY = animator.phaseY
-                
-                let iconsOffset = dataSet.iconsOffset
                 
                 let buffer = _buffers[dataSetIndex]
                 
@@ -391,35 +389,15 @@ open class HorizontalBarChartRenderer: BarChartRenderer
                             negOffset = -negOffset - valueTextWidth
                         }
                         
-                        if dataSet.isDrawValuesEnabled
-                        {
-                            drawValue(
-                                context: context,
-                                value: valueText,
-                                xPos: (rect.origin.x + rect.size.width)
-                                    + (val >= 0.0 ? posOffset : negOffset),
-                                yPos: y + yOffset,
-                                font: valueFont,
-                                align: textAlign,
-                                color: dataSet.valueTextColorAt(j))
-                        }
-                        
-                        if let icon = e.icon, dataSet.isDrawIconsEnabled
-                        {
-                            var px = (rect.origin.x + rect.size.width)
-                                + (val >= 0.0 ? posOffset : negOffset)
-                            var py = y
-                            
-                            px += iconsOffset.x
-                            py += iconsOffset.y
-                            
-                            ChartUtils.drawImage(
-                                context: context,
-                                image: icon,
-                                x: px,
-                                y: py,
-                                size: icon.size)
-                        }
+                        drawValue(
+                            context: context,
+                            value: valueText,
+                            xPos: (rect.origin.x + rect.size.width)
+                                + (val >= 0.0 ? posOffset : negOffset),
+                            yPos: y + yOffset,
+                            font: valueFont,
+                            align: textAlign,
+                            color: dataSet.valueTextColorAt(j))
                     }
                 }
                 else
@@ -472,35 +450,15 @@ open class HorizontalBarChartRenderer: BarChartRenderer
                                 negOffset = -negOffset - valueTextWidth
                             }
                             
-                            if dataSet.isDrawValuesEnabled
-                            {
-                                drawValue(
-                                    context: context,
-                                    value: valueText,
-                                    xPos: (rect.origin.x + rect.size.width)
-                                        + (val >= 0.0 ? posOffset : negOffset),
-                                    yPos: rect.origin.y + yOffset,
-                                    font: valueFont,
-                                    align: textAlign,
-                                    color: dataSet.valueTextColorAt(index))
-                            }
-                            
-                            if let icon = e.icon, dataSet.isDrawIconsEnabled
-                            {
-                                var px = (rect.origin.x + rect.size.width)
-                                    + (val >= 0.0 ? posOffset : negOffset)
-                                var py = rect.origin.y
-                                
-                                px += iconsOffset.x
-                                py += iconsOffset.y
-                                
-                                ChartUtils.drawImage(
-                                    context: context,
-                                    image: icon,
-                                    x: px,
-                                    y: py,
-                                    size: icon.size)
-                            }
+                            drawValue(
+                                context: context,
+                                value: valueText,
+                                xPos: (rect.origin.x + rect.size.width)
+                                    + (val >= 0.0 ? posOffset : negOffset),
+                                yPos: rect.origin.y + yOffset,
+                                font: valueFont,
+                                align: textAlign,
+                                color: dataSet.valueTextColorAt(index))
                         }
                         else
                         {
@@ -576,26 +534,13 @@ open class HorizontalBarChartRenderer: BarChartRenderer
                                     continue
                                 }
                                 
-                                if dataSet.isDrawValuesEnabled
-                                {
-                                    drawValue(context: context,
-                                        value: valueText,
-                                        xPos: x,
-                                        yPos: y + yOffset,
-                                        font: valueFont,
-                                        align: textAlign,
-                                        color: dataSet.valueTextColorAt(index))
-                                }
-                                
-                                if let icon = e.icon, dataSet.isDrawIconsEnabled
-                                {
-                                    ChartUtils.drawImage(
-                                        context: context,
-                                        image: icon,
-                                        x: x + iconsOffset.x,
-                                        y: y + iconsOffset.y,
-                                        size: icon.size)
-                                }
+                                drawValue(context: context,
+                                    value: valueText,
+                                    xPos: x,
+                                    yPos: y + yOffset,
+                                    font: valueFont,
+                                    align: textAlign,
+                                    color: dataSet.valueTextColorAt(index))
                             }
                         }
                         

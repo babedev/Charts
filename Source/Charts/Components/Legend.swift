@@ -197,10 +197,10 @@ open class Legend: ComponentBase
     open var direction: Direction = Direction.leftToRight
 
     open var font: NSUIFont = NSUIFont.systemFont(ofSize: 10.0)
-    open var textColor = NSUIColor.black
+    open var textColor = NSUIColor.clear
 
     /// The form/shape of the legend forms
-    open var form = Form.square
+    open var form = Form.none
     
     /// The size of the legend forms
     open var formSize = CGFloat(8.0)
@@ -234,7 +234,7 @@ open class Legend: ComponentBase
         super.init()
         
         self.xOffset = 5.0
-        self.yOffset = 3.0
+        self.yOffset = 5.0
     }
     
     public init(entries: [LegendEntry])
@@ -289,7 +289,7 @@ open class Legend: ComponentBase
     /// this is currently supported only for `orientation == Horizontal`.
     /// you may want to set maxSizePercent when word wrapping, to set the point where the text wraps.
     /// 
-    /// **default**: true
+    /// **default**: false
     open var wordWrapEnabled = true
     
     /// if this is set, then word wrapping the legend is enabled.

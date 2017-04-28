@@ -34,9 +34,9 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     fileprivate var _scaleYEnabled = true
     
     /// the color for the background of the chart-drawing area (everything behind the grid lines).
-    open var gridBackgroundColor = NSUIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
+    open var gridBackgroundColor = NSUIColor.clear
     
-    open var borderColor = NSUIColor.black
+    open var borderColor = NSUIColor.clear
     open var borderLineWidth: CGFloat = 1.0
     
     /// flag indicating if the grid background should be drawn or not
@@ -174,22 +174,14 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         // execute all drawing commands
         drawGridBackground(context: context)
         
-
-        if _autoScaleMinMaxEnabled
-        {
-            autoScale()
-        }
-
         if _leftAxis.isEnabled
         {
             _leftYAxisRenderer?.computeAxis(min: _leftAxis._axisMinimum, max: _leftAxis._axisMaximum, inverted: _leftAxis.isInverted)
         }
-        
         if _rightAxis.isEnabled
         {
             _rightYAxisRenderer?.computeAxis(min: _rightAxis._axisMinimum, max: _rightAxis._axisMaximum, inverted: _rightAxis.isInverted)
         }
-        
         if _xAxis.isEnabled
         {
             _xAxisRenderer?.computeAxis(min: _xAxis._axisMinimum, max: _xAxis._axisMaximum, inverted: false)
@@ -199,22 +191,25 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         _leftYAxisRenderer?.renderAxisLine(context: context)
         _rightYAxisRenderer?.renderAxisLine(context: context)
 
+        if _autoScaleMinMaxEnabled
+        {
+            autoScale()
+        }
+        
         // The renderers are responsible for clipping, to account for line-width center etc.
         _xAxisRenderer?.renderGridLines(context: context)
         _leftYAxisRenderer?.renderGridLines(context: context)
         _rightYAxisRenderer?.renderGridLines(context: context)
         
-        if _xAxis.isEnabled && _xAxis.isDrawLimitLinesBehindDataEnabled
+        if _xAxis.isDrawLimitLinesBehindDataEnabled
         {
             _xAxisRenderer?.renderLimitLines(context: context)
         }
-        
-        if _leftAxis.isEnabled && _leftAxis.isDrawLimitLinesBehindDataEnabled
+        if _leftAxis.isDrawLimitLinesBehindDataEnabled
         {
             _leftYAxisRenderer?.renderLimitLines(context: context)
         }
-        
-        if _rightAxis.isEnabled && _rightAxis.isDrawLimitLinesBehindDataEnabled
+        if _rightAxis.isDrawLimitLinesBehindDataEnabled
         {
             _rightYAxisRenderer?.renderLimitLines(context: context)
         }
@@ -234,23 +229,21 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         
         renderer!.drawExtras(context: context)
         
-        if _xAxis.isEnabled && !_xAxis.isDrawLimitLinesBehindDataEnabled
+        if !_xAxis.isDrawLimitLinesBehindDataEnabled
         {
             _xAxisRenderer?.renderLimitLines(context: context)
         }
-        
-        if _leftAxis.isEnabled && !_leftAxis.isDrawLimitLinesBehindDataEnabled
+        if !_leftAxis.isDrawLimitLinesBehindDataEnabled
         {
             _leftYAxisRenderer?.renderLimitLines(context: context)
         }
-        
-        if _rightAxis.isEnabled && !_rightAxis.isDrawLimitLinesBehindDataEnabled
+        if !_rightAxis.isDrawLimitLinesBehindDataEnabled
         {
             _rightYAxisRenderer?.renderLimitLines(context: context)
         }
         
         _xAxisRenderer.renderAxisLabels(context: context)
-        _leftYAxisRenderer.renderAxisLabels(context: context)
+//        _leftYAxisRenderer.renderAxisLabels(context: context)
         _rightYAxisRenderer.renderAxisLabels(context: context)
 
         if clipValuesToContentEnabled
@@ -288,16 +281,8 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         _xAxis.calculate(min: data.xMin, max: data.xMax)
         
         // calculate axis range (min / max) according to provided data
-        
-        if _leftAxis.isEnabled
-        {
-            _leftAxis.calculate(min: data.getYMin(axis: .left), max: data.getYMax(axis: .left))
-        }
-        
-        if _rightAxis.isEnabled
-        {
-            _rightAxis.calculate(min: data.getYMin(axis: .right), max: data.getYMax(axis: .right))
-        }
+        _leftAxis.calculate(min: data.getYMin(axis: .left), max: data.getYMax(axis: .left))
+        _rightAxis.calculate(min: data.getYMin(axis: .right), max: data.getYMax(axis: .right))
         
         calculateOffsets()
     }

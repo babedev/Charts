@@ -41,7 +41,7 @@ open class XAxis: AxisBase
     open var labelRotationAngle = CGFloat(0.0)
 
     /// if set to true, the chart will avoid that the first and last label entry in the chart "clip" off the edge of the chart
-    open var avoidFirstLastClippingEnabled = false
+    open var avoidFirstLastClippingEnabled = true
     
     /// the position of the x-labels relative to the chart
     open var labelPosition = LabelPosition.top

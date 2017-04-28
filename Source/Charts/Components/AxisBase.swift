@@ -25,14 +25,14 @@ open class AxisBase: ComponentBase
     fileprivate var _axisValueFormatter: IAxisValueFormatter?
     
     open var labelFont = NSUIFont.systemFont(ofSize: 10.0)
-    open var labelTextColor = NSUIColor.black
+    open var labelTextColor = NSUIColor(white: 1, alpha: 0.85)
     
-    open var axisLineColor = NSUIColor.gray
+    open var axisLineColor = NSUIColor.clear
     open var axisLineWidth = CGFloat(0.5)
     open var axisLineDashPhase = CGFloat(0.0)
     open var axisLineDashLengths: [CGFloat]!
     
-    open var gridColor = NSUIColor.gray.withAlphaComponent(0.9)
+    open var gridColor = NSUIColor.clear
     open var gridLineWidth = CGFloat(0.5)
     open var gridLineDashPhase = CGFloat(0.0)
     open var gridLineDashLengths: [CGFloat]!
@@ -91,7 +91,7 @@ open class AxisBase: ComponentBase
     /// When false, axis values could possibly be repeated.
     /// This could happen if two adjacent axis values are rounded to same value.
     /// If using granularity this could be avoided by having fewer axis values visible.
-    open var granularityEnabled = false
+    open var granularityEnabled = true
     
     fileprivate var _granularity = Double(1.0)
     
@@ -124,7 +124,7 @@ open class AxisBase: ComponentBase
     }
     
     /// if true, the set number of y-labels will be forced
-    open var forceLabelsEnabled = false
+    open var forceLabelsEnabled = true
     
     open func getLongestLabel() -> String
     {

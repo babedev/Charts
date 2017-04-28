@@ -155,7 +155,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
     
     /// flag that indicates if offsets calculation has already been done or not
     fileprivate var _offsetsCalculated = false
-	
+    
     /// array of Highlight objects that reference the highlighted slices in the chart
     internal var _indicesToHighlight = [Highlight]()
     
@@ -197,6 +197,10 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
     public override init(frame: CGRect)
     {
         super.init(frame: frame)
+
+		#if os(iOS)
+			self.backgroundColor = NSUIColor.clear
+		#endif
         initialize()
     }
     
@@ -214,10 +218,6 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
     
     internal func initialize()
     {
-        #if os(iOS)
-            self.backgroundColor = NSUIColor.clear
-        #endif
-
         _animator = Animator()
         _animator.delegate = self
 
@@ -276,8 +276,6 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
         _data = nil
         _offsetsCalculated = false
         _indicesToHighlight.removeAll()
-	    lastHighlighted = nil
-	
         setNeedsDisplay()
     }
     

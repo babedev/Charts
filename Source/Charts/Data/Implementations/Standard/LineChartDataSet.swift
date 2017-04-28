@@ -27,7 +27,8 @@ open class LineChartDataSet: LineRadarChartDataSet, ILineChartDataSet
     fileprivate func initialize()
     {
         // default color
-        circleColors.append(NSUIColor(red: 140.0/255.0, green: 234.0/255.0, blue: 255.0/255.0, alpha: 1.0))
+        circleColors.append(NSUIColor.white)
+        lineWidth = 2
     }
     
     public required init()
@@ -49,9 +50,9 @@ open class LineChartDataSet: LineRadarChartDataSet, ILineChartDataSet
     /// The drawing mode for this line dataset
     ///
     /// **default**: Linear
-    open var mode: Mode = Mode.linear
+    open var mode: Mode = Mode.cubicBezier
     
-    fileprivate var _cubicIntensity = CGFloat(0.2)
+    fileprivate var _cubicIntensity = CGFloat(0.12)
     
     /// Intensity for cubic lines (min = 0.05, max = 1)
     ///
@@ -109,10 +110,10 @@ open class LineChartDataSet: LineRadarChartDataSet, ILineChartDataSet
     open var isDrawSteppedEnabled: Bool { return drawSteppedEnabled }
     
     /// The radius of the drawn circles.
-    open var circleRadius = CGFloat(8.0)
+    open var circleRadius = CGFloat(3.0)
     
     /// The hole radius of the drawn circles
-    open var circleHoleRadius = CGFloat(4.0)
+    open var circleHoleRadius = CGFloat(3.0)
     
     open var circleColors = [NSUIColor]()
     

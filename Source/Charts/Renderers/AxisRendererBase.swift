@@ -132,8 +132,8 @@ open class AxisRendererBase: Renderer
         
         var n = axis.centerAxisLabelsEnabled ? 1 : 0
         
-        // force label count
-        if axis.isForceLabelsEnabled
+        // force label count FAIR
+        if !axis.isForceLabelsEnabled
         {
             interval = Double(range) / Double(labelCount - 1)
             
@@ -196,7 +196,7 @@ open class AxisRendererBase: Renderer
         // set decimals
         if interval < 1
         {
-            axis.decimals = Int(ceil(-log10(interval)))
+            axis.decimals = Int(ceil(-log10(interval))) // FAIR
         }
         else
         {
